@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load static %}
+
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    background-color: rgb(243, 243, 243);
+  }
+
+.requiredField{
+  display: none;
+}
+input{
+  margin-top: 25px;
+}
+
+</style>
+
+
+
+<section class="login align-items-center text-center py-5">
+  <div class="container py-5">
+    <div class="row py-2 align-items-center d-flex justify-content-between">
+      <p class="display-1">Algorithm</p>
+      <div class="col-lg-5 py-4">
+        <div class="card" data-aos="zoom-in" data-aos-duration="3000">
+          <form class="login" method="POST" action="{% url 'account_login' %}">
+            <div class="card-body">
+              <h5 class="card-title h1">login</h5>
+              {% csrf_token %}
+              <div class="form py-5 text-start text-muted fw-lighter">
+                {{form|crispy}}
+              </div>
+              {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
+              <div class="d-grid col-8 mx-auto">
+                <button class="btn lead" type="submit">{% trans "Sign In" %}</button>
+              </div>
+              <div class="mt-5">
+                <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?"%}</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-5 py-4 d-none d-lg-block">
+        <img src="{% static 'images/Lock.png' %}" alt="" class="img-fluid" >
+      </div>
+    </div>
+    <div class="h3 mt-5">
+      {% if socialaccount_providers %}
+      <p>{% blocktrans with site.name as site_name %}Please sign in with one
+        of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+        for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+  
+      <div class="socialaccount_ballot">
+  
+        <ul class="socialaccount_providers">
+          {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+        </ul>
+  
+        <div class="login-or">{% trans 'or' %}</div>
+  
+      </div>
+  
+      {% include "socialaccount/snippets/login_extra.html" %}
+  
+      {% else %}
+      <p>{% blocktrans %}New to Algorithm, then please
+        <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}
+      </p>
+      {% endif %}
+    </div>
+    
+  </div>
+</section>
+{% endblock %}

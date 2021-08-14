@@ -1,0 +1,205 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+{% block title %}<title>Account</title>{% endblock %}
+<style>
+    label {
+        display: none;
+    }
+
+    .account-setting .container #save {
+        border: none;
+        background: none;
+    }
+    .modal .modal-footer button{
+        background-color: black;
+        color: white;
+        box-shadow: none;
+    }
+    .modal .modal-footer button:hover{
+        background-color: tomato;
+        color: black;
+    }
+</style>
+<!-- navbar -->
+<nav class="navbar navbar-light  navbar-expand-md text-light navbar-nav-scroll fixed-top py-4" id="nav">
+    <div class="container">
+        <a href="{% url 'home' %}" class="navbar-brand"><span class="h1">Algorithm<i
+                    class="fas fa-fingerprint mx-2"></i></span></a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar" id="navbar-toggler"
+            onclick="navButton()">
+            <i class="fas fa-angle-down" id="toggle-button"></i>
+        </button>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="navbar-nav ms-auto">
+                {% if request.user.is_authenticated %}
+                <li class="nav-item"><a href="{% url 'dashboard' request.user.id %}"
+                        class="nav-link text-light lead"><span id="nav-link">Dashboard</span></a></li>
+                <li class="nav-item"><a href="{% url 'account_logout' %}" class="nav-link text-light lead"><span
+                            id="nav-link">logout</span></a></li>
+                <li class="nav-item"><a href="{% url 'feedback' request.user.id %}"
+                        class="nav-link text-light lead"><span id="nav-link">Contact</span></a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- end navbar -->
+
+
+<!-- account -->
+<section class="account-setting align-items-center text-center py-5">
+    <div class="container py-5">
+        <p class="display-1 py-5">
+            Account
+        </p>
+        <form action="{% url 'settings' request.user.id %}" method="POST">
+            {% csrf_token %}
+            <div class="d-flex justify-content-end">
+                <input type="submit" class="fw-bold option-in-line" value="save" id="save">
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-6">
+                    <p class="h2">View history</p>
+                </div>
+                <div class="col-6 d-flex justify-content-center">
+                    <div class="form-check form-switch">
+                        <div class="h2" style="margin-left: 45px;">
+                            {{form.show_overall_login_history | as_crispy_field }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-6">
+                    <p class="h2">Last modified</p>
+                </div>
+                <div class="col-6 d-flex justify-content-center">
+                    <div class="form-check form-switch">
+                        <div class="h2" style="margin-left: 45px;">
+                            {{form.show_last_modified_of_password | as_crispy_field }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <hr>
+        <div class="row d-flex justify-content-center py-3">
+            <div class="col-md-5">
+                <a class="h2 option-in-line py-2" href="{% url 'account_change_password'%}">
+                    Change password
+                </a>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center py-3">
+            <div class="col-md-5">
+                <a class="h2 option-in-line py-2" href="{% url 'account_logout'%}">
+                    Logout
+                </a>
+            </div>
+        </div>
+        <div class="row   d-flex justify-content-center py-3">
+            <div class="col-md-5">
+                <a class="h2 option-in-line py-2" href="{% url 'delete_account' request.user.id %}">
+                    Delete Account
+                </a>
+            </div>
+        </div>
+        <hr>
+        {% if request.user.show_overall_login_history %}
+        {% if request.user.profile_user_history.count > 0 %}
+        <div class="row d-flex justify-content-center py-5 mb-3">
+            <div class="col-md-5">
+                <p class="h1 fw-bold py-2">
+                    Overall Login History
+                </p>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">OS</th>
+                    <th scope="col">Device</th>
+                </tr>
+            </thead>
+
+            {% for items in logged_in_history %}
+            <tbody>
+                <tr>
+                    <th scope="row">{{items.logged_in_at}}</th>
+                    <td>{{items.system_os}}</td>
+                    <td>{{items.system_name}}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+            <div class="row d-flex justify-content-center py-3">
+                <div class="col-8">
+                    <button class="btn btn-danger col-8" type="button" data-bs-toggle="modal" data-bs-target="#delete_history" style="box-shadow: none;">Delete
+                        History</button>
+                </div>
+            </div>
+        </form>
+        {% else %}
+        <p class="h2 mt-4">No Login History to show</p>
+        {% endif %}
+        {% endif %}
+    
+        {% if request.user.show_last_modified_of_password %}
+        {% if request.user.profile_user.count > 0 %}
+        <div class="row d-flex justify-content-center py-5 mb-3">
+            <div class="col-md-5">
+                <p class="h1 fw-bold py-2">
+                    Last modified
+                </p>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Key</th>
+                    <th scope="col">Last modified at</th>
+                </tr>
+            </thead>
+
+            {% for items in objects %}
+            <tbody>
+                <tr>
+                    <th scope="row">{{items.key}}</th>
+                    <td>{{items.last_modified}}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+
+        </table>
+        {% else %}
+        <p class="h2 mt-4">No Keys to show</p>
+        {% endif %}
+        {% endif %}
+    </div>
+    
+
+<!-- Modal -->
+<div class="modal fade" id="delete_history" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Are you sure want to delete youy login history?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{% url 'delete_login_history' request.user.id %}" method="POST">
+                {% csrf_token %}
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn">Yes</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+</section>
+{% endblock %}

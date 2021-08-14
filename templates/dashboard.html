@@ -1,0 +1,111 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% block title %}<title>Dashboard</title>{% endblock %}
+<style>
+    .requiredField {
+        display: none;
+    }
+
+    body {
+        background-color: rgb(243, 243, 243);
+    }
+</style>
+<!-- navbar -->
+<nav class="navbar navbar-light  navbar-expand-md text-light navbar-nav-scroll fixed-top py-4" id="nav">
+    <div class="container">
+        <a href="{% url 'home' %}" class="navbar-brand"><span class="h1">Algorithm<i class="fas fa-fingerprint mx-2"></i></span></a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar" 
+            id="navbar-toggler" onclick="navButton()">
+            <i class="fas fa-angle-down" id="toggle-button"></i>
+        </button>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="navbar-nav ms-auto">
+                {% if request.user.is_authenticated %}
+                <li class="nav-item"><a href="{% url 'settings' request.user.id %}" class="nav-link text-light lead"><span id="nav-link">account</span></a>
+                </li>
+                <li class="nav-item"><a href="{% url 'account_logout' %}" class="nav-link text-light lead"><span id="nav-link">logout</span></a></li>
+                <li class="nav-item"><a href="{% url 'feedback' request.user.id %}" class="nav-link text-light lead"><span id="nav-link">Contact</span></a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- end navbar -->
+
+<!-- side nav -->
+<section class="side-nav align-items-center text-center py-5">
+    <div class="container py-5">
+        <div class="row d-flex justify-content-between py-5">
+            <div class="col-lg-3">
+                <p class="display-3 text-break">{{request.user.username}}</p> <!--text break is used-->
+                <p class="h3">Number of keys: {{request.user.profile_user.count}}</p>
+                <p class="h3 mt-3">currently logged in at: {{request.user.last_login}}</p>
+            </div>
+            <div class="col-lg-8 py-2">
+                {% if messages %}
+
+                {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show mt-5" role="alert" data-aos="fade-left">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+                {% endfor %}
+
+                {% endif %}
+                <p class="lead">code</p>
+                <hr>
+                <div class="row mt-5 d-flex justify-content-center">
+                    {% if items %}
+                    {% for item in items %}
+                    <div class="col-6 mb-3">
+                        <input type="text" class="form-control" placeholder="note" value="{{item.key}}" disabled>
+                    </div>
+                  
+                    <div class="col-1 mb-3">
+                        <a href="{{item.get_obsolute_url_for_edit}}"  data-bs-toggle="tooltip"
+                            data-bs-placement="right" title="Edit"><i class="far fa-edit"></i></a>
+                    </div>
+                    
+                    <div class="col-1 mb-3">
+                        <a href="{{item.get_obsolute_url_for_delete}}"  data-bs-toggle="tooltip"
+                            data-bs-placement="right" title="Delete"><i class="fas fa-trash text-danger"></i></a>
+                    </div>
+                      
+                    <div class="col-1 mb-3">
+                        <a href="{{item.get_obsolute_url_for_view}}" class="fw-bold">view</a>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <p>post your first key</p>
+                    {% endif %}
+                    <hr class="mt-5">
+                    <div class="d-grid col-md-6 mx-auto">
+                        <button class="btn add-password" type="submit">Add password +</button>
+                    </div>
+                    <div class="main_form">
+                        <form action="{% url 'dashboard' request.user.id %}" class="row d-flex justify-content-center" method="POST" id="main_form">
+                            {% csrf_token %}
+                            <div class="col-md-6 mb-3">
+                                {{form.key|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{form.value|as_crispy_field }}
+                            </div>
+                            <div class="d-grid col-md-6 mx-auto mb-3">
+                                <button class="btn submit-form" type="submit">Submit</button>
+                            </div>
+                            <div class="d-grid col-md-6 mx-auto mb-3">
+                                <button class="btn cancel-form" type="button">cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

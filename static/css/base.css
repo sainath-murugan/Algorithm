@@ -1,0 +1,378 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=Lobster+Two&family=MuseoModerno:wght@300&family=Paprika&family=Zen+Tokyo+Zoo&display=swap');
+
+/* home.html */
+.navbar .container .h1{
+    font-family: 'MuseoModerno', cursive;
+    color: #00FFFF;
+}
+
+.navbar{
+    border-top: 1px solid #00FFFF;
+    background-color: rgb(7, 4, 4);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+}
+.navbar .container button{
+    color: white;
+}
+/* hero */
+
+.hero{
+    background-color: rgb(243, 243, 243);
+    color: #00CCCC;
+}
+.hero .container .row .col-lg-6 a span{
+    font-weight: 600;
+   
+}
+.hero .container .row .col-lg-6 a{
+    background-color: rgb(7, 4, 4);
+    color: white;
+    box-shadow: none;
+   
+}
+.hero .container .row .col-lg-6 a:hover{
+    background-color: tomato;
+    color: rgb(7, 4, 4);
+}
+
+.hero .container hr{
+    color: rgb(131, 127, 126);
+}
+.content{
+    background-color: rgb(243, 243, 243);
+}
+.content .container .display-1{
+    font-weight: 500;
+}
+.content .container .h1 p{
+    color: rgb(131, 127, 126) ;
+}
+
+.content .container hr{
+    color: rgb(131, 127, 126) ;
+}
+.achievement{
+    background-color: rgb(243, 243, 243);
+}
+
+.achievement .container .display-1{
+    color: rgb(236, 110, 110);
+    font-weight: 500;
+}
+.achievement .container .fas{
+    color: rgb(91, 185, 240);
+}
+
+.achievement .container  .display-4{
+    color: rgb(131, 127, 126) ;
+}
+
+footer .container .row .fab{
+    border: 2px solid white;
+    padding: 10px;
+    border-radius: 35px;
+    text-decoration: none;
+    color: white;
+}
+
+footer .container .row .fab:hover{
+    border: 2px solid white;
+    padding: 10px;
+    border-radius: 35px;
+    color: tomato;
+}
+
+/* dashboard.html */
+
+.side-nav .container .row .col-lg-3 p{
+    font-weight: 400;
+
+}
+.side-nav .container .row .col-lg-3 .h1{
+    color: rgb(131, 127, 126) ;
+
+}
+.side-nav .container .row .col-lg-3 .h3{
+    color: rgb(131, 127, 126) ;
+
+}
+.side-nav .container .row .col-lg-8 .row input{
+    box-shadow: none;
+    border: none;
+  }
+.side-nav .container .row .col-lg-8 .row button{
+    box-shadow: none;
+    background-color: black;
+    color: white;
+  }
+.side-nav .container .row .col-lg-8 .row button:hover{
+    box-shadow: none;
+    background-color: tomato;
+    color: black;
+  }
+.side-nav .container .row .col-lg-8 .main_form button{
+    background-color: black;
+    color: white;
+    box-shadow: none;
+    border: 1px gray solid;
+  }
+.side-nav .container .row .col-lg-8 .main_form input{
+    border: 1px rgb(187, 187, 187) solid;
+  }
+.side-nav .container .row .col-lg-8 .main_form button:hover{
+    background-color: tomato;
+    color: black;
+  }
+
+.side-nav .container .row .col-lg-8 .row a{
+    text-decoration: none;
+  }
+/* setting.html */
+.account-setting .container .option-in-line{
+   text-decoration: none;
+   color: rgb(131, 127, 126);
+}
+
+.account-setting .container .option-in-line:hover{
+    color: black;
+}
+/* login.html */
+.login .container .row .display-1{
+    font-family: 'MuseoModerno', cursive;
+
+}
+.login .container .row .col-lg-5 .card .card-body button{
+   background-color: black;
+   color: white;
+}
+.login .container .row .col-lg-5 .card .card-body button:hover{
+    background-color: tomato;
+    color: black;
+ }
+
+.login .container .row .col-lg-5 .card .card-body a{
+   text-decoration: none;
+ }
+ .login .container .row .col-lg-5 .card .card-body input{
+    background-color: rgb(243, 243, 243);
+  }
+  .login .container .row .col-lg-5 .card .card-body input, .login .container .row .col-lg-5 .card .card-body button{
+   box-shadow: none;
+  }
+  .login .container .row .col-lg-5 .card .card-body input:focus{
+    border: 1px black solid;
+   }
+.login .container a{
+    text-decoration: none;
+}
+
+/* logout.html */
+.log-out .container .row .col-lg-3 .d-grid button, .log-out .container .row .col-lg-3 .d-grid a{
+    box-shadow: none;
+}
+.log-out .container .row .col-lg-3 .d-grid button, .log-out .container .row .col-lg-3 .d-grid a{
+    background-color: black;
+    color: white;
+}
+.log-out .container .row .col-lg-3 .d-grid button:hover,.log-out .container .row .col-lg-3 .d-grid a:hover{
+    background-color: tomato;
+    color: black;
+}
+/* signup.html */
+.signup .container .row .display-1{
+    font-family: 'MuseoModerno', cursive;
+
+}
+.signup .container .row .col-lg-5 .card .card-body button{
+   background-color: black;
+   color: white;
+}
+.signup .container .row .col-lg-5 .card .card-body button:hover{
+    background-color: tomato;
+    color: black;
+ }
+
+.signup .container .row .col-lg-5 .card .card-body a{
+   text-decoration: none;
+ }
+.signup .container .row .col-lg-5 .card .card-body input{
+    background-color: rgb(243, 243, 243);
+  }
+.signup .container .row .col-lg-5 .card .card-body input, .signup .container .row .col-lg-5 .card .card-body button{
+   box-shadow: none;
+  }
+.signup .container .row .col-lg-5 .card .card-body input:focus{
+    border: 1px black solid;
+   }
+.signup .container a{
+    text-decoration: none;
+}
+
+/* password_change.html*/
+.password_change .container .row .display-1{
+    font-family: 'MuseoModerno', cursive;
+
+}
+.password_change .container .row .col-lg-5 .card .card-body button{
+   background-color: black;
+   color: white;
+}
+.password_change .container .row .col-lg-5 .card .card-body button:hover{
+    background-color: tomato;
+    color: black;
+ }
+
+.password_change .container .row .col-lg-5 .card .card-body a{
+   text-decoration: none;
+ }
+.password_change .container .row .col-lg-5 .card .card-body input{
+    background-color: rgb(243, 243, 243);
+  }
+.password_change .container .row .col-lg-5 .card .card-body input, .password_change .container .row .col-lg-5 .card .card-body button{
+   box-shadow: none;
+  }
+.password_change .container .row .col-lg-5 .card .card-body input:focus{
+    border: 1px black solid;
+   }
+.password_change .container a{
+    text-decoration: none;
+}
+
+/* password_reset.html */
+
+.password_reset .container .display-1 {
+    font-family: 'MuseoModerno', cursive;
+}
+.password_reset .container  .card .card-body input{
+    background-color: rgb(243, 243, 243);
+    box-shadow: none;
+   
+  }
+.password_reset .container .card .card-body input:focus{
+    border: 1px black solid;
+   }
+.password_reset .container .card .card-body button{
+    background-color: black;
+    color: white;
+    box-shadow: none;
+}
+.password_reset .container .card .card-body button:hover{
+    background-color: tomato;
+    color: black;
+}
+/* password_reset_from_key.html */
+.password_reset_from_key .container .row .display-1 {
+    font-family: 'MuseoModerno', cursive;
+}
+.password_reset_from_key .container  .card .card-body input{
+    background-color: rgb(243, 243, 243);
+    box-shadow: none;
+  }
+
+.password_reset_from_key .container .card .card-body button{
+    background-color: black;
+    color: white;
+    box-shadow: none;
+}
+.password_reset_from_key .container .card .card-body input:focus{
+    border: 1px black solid;
+   }
+.password_reset_from_key .container .card .card-body button:hover{
+    background-color: tomato;
+    color: black;
+}
+
+
+/* email_confirm.html */
+
+.email_confirm .container button{
+    background-color: black;
+    color: white;
+    box-shadow: none;
+}
+.email_confirm .container button:hover{
+    background-color: tomato;
+    color: black
+}
+
+/* delete_password.html */
+.delete_password .container .row .col-lg-3 .d-grid button,.delete_password .container .row .col-lg-3 .d-grid a{
+    box-shadow: none;
+}
+.delete_password .container .row .col-lg-3 .d-grid button, .delete_password .container .row .col-lg-3 .d-grid a{
+    background-color: black;
+    color: white;
+}
+.delete_password .container .row .col-lg-3 .d-grid button:hover,.delete_password .container .row .col-lg-3 .d-grid a:hover{
+    background-color: tomato;
+    color: black;
+}
+
+/* delete_account.html */
+
+.delete_account .container .display-1 {
+    font-family: 'MuseoModerno', cursive;
+}
+.delete_account  .container  .card .card-body input{
+    background-color: rgb(243, 243, 243);
+   box-shadow: none;
+   
+  }
+.delete_account  .container .card .card-body input:focus{
+    border: 1px black solid;
+   }
+.delete_account  .container .card .card-body button{
+    background-color: black;
+    color: white;
+    box-shadow: none;
+}
+.delete_account  .container .card .card-body button:hover{
+    background-color: tomato;
+    color: black;
+}
+
+/* contact.html */
+
+.contact .container .display-1 {
+    font-family: 'MuseoModerno', cursive;
+}
+.contact .container  .card .card-body textarea{
+    background-color: rgb(243, 243, 243);
+    box-shadow: none;
+   
+  }
+.contact .container .card .card-body textarea:focus{
+    border: 1px black solid;
+   }
+.contact .container .card .card-body button{
+    background-color: black;
+    color: white;
+    box-shadow: none;
+}
+.contact .container .card .card-body button:hover{
+    background-color: tomato;
+    color: black;
+}
+
+/* edit_password.html */
+
+.edit_password .container .display-1 {
+    font-family: 'MuseoModerno', cursive;
+}
+.edit_password .container  .card .card-body input{
+    background-color: rgb(243, 243, 243);
+    box-shadow: none;
+   
+  }
+.edit_password .container .card .card-body input:focus{
+    border: 1px black solid;
+   }
+.edit_password .container .card .card-body button{
+    background-color: black;
+    color: white;
+    box-shadow: none;
+}
+.edit_password .container .card .card-body button:hover{
+    background-color: tomato;
+    color: black;
+}

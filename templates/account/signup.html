@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load static %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    background-color: rgb(243, 243, 243);
+  }
+
+.requiredField{
+  display: none;
+}
+input{
+  margin-top: 25px;
+}
+</style>
+
+
+<section class="signup align-items-center text-center py-5">
+  <div class="container py-5">
+    <div class="row py-2 align-items-center d-flex justify-content-between">
+      <p class="display-1">Algorithm</p>
+      <div class="col-lg-5 py-4">
+        <div class="card" data-aos="zoom-in" data-aos-duration="3000">
+          <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+            <div class="card-body">
+              <h5 class="card-title h1">SignUp</h5>
+              {% csrf_token %}
+              <div class="form py-5 text-start text-muted fw-lighter">
+                {{form|crispy}}
+              </div>
+              {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
+              <div class="d-grid col-8 mx-auto mb-5">
+                <button class="btn lead" type="submit">{% trans "Sign Up" %}</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-6 py-4 d-none d-lg-block">
+        <img src="{% static 'images/Lock.png' %}" alt="" class="img-fluid" >
+      </div>
+    </div>
+    <div class="h3 mt-5">
+      <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">Log in</a>{% endblocktrans %}</p>
+    </div>
+    
+  </div>
+</section>
+{% endblock %}

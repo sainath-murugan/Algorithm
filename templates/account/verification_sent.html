@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Verify Your E-mail Address" %}{% endblock %}
+
+{% block content %}
+<style>
+    body {
+      background-color: rgb(243, 243, 243);
+    }
+  
+  </style>
+
+<section class="verification_sent align-items-center text-center py-5">
+    <div class="container py-5">
+        <div class="py-5 align-items-center">
+            <h1>{% trans "Verify Your E-mail Address" %}</h1>
+            <h4 class="mt-5">{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process.{% endblocktrans %}</h4>
+        </div>
+    </div>
+</section>
+    
+
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+
+ <!-- navbar -->
+ <nav class="navbar navbar-light  navbar-expand-md text-light navbar-nav-scroll fixed-top py-4" id="nav">
+    <div class="container">
+        <a href="{% url 'home' %}" class="navbar-brand"><span class="h1">Algorithm<i
+                    class="fas fa-fingerprint mx-2"></i></span></a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar"
+            id="navbar-toggler" onclick="navButton()">
+            <i class="fas fa-angle-down" id="toggle-button"></i>
+        </button>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="navbar-nav ms-auto">
+                
+                {% if request.user.is_authenticated %}
+                <li class="nav-item"><a href="{% url 'dashboard' request.user.id %}" class="nav-link text-light lead"><span
+                            id="nav-link">Dashboard</span></a></li>
+                <li class="nav-item"><a href="{% url 'settings' request.user.id %}" class="nav-link text-light lead"><span
+                                id="nav-link">Account</span></a></li>
+                <li class="nav-item"><a href="{% url 'feedback' request.user.id %}" class="nav-link text-light lead"><span
+                            id="nav-link">Contact</span></a></li>
+                {% else %}
+                <li class="nav-item"><a href="{% url 'account_login' %}" class="nav-link text-light lead"><span
+                    id="nav-link">Login</span></a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- end navbar -->
+
+<!-- hero -->
+<section class="hero d-flex align-items-center text-center py-5">
+    <div class="container py-5">
+        <div class="row py-5 d-flex align-items-center justify-content-between">
+            <div class="col-lg-6">
+                <p class="display-3 fw-bold">Make you Privacy more safer</p>
+                <p class="num display-1 fw-bold">0%</p>
+                {% if not request.user.is_authenticated %}
+                <div class="d-grid mx-auto col-6 py-5">
+                   <a href="{% url 'account_signup' %}" class="btn btn-lg p-3"><span>Signup</span></a>
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-lg-5 d-none d-lg-block">
+                <img src="{% static 'images/Lock.png' %}" alt="" class="img-fluid" data-aos="zoom-in" data-aos-duration="3000">
+            </div>
+        </div>
+        <hr>
+    </div>
+</section>
+<!-- end hero -->
+
+<!-- content -->
+<section class="content align-items-center text-center">
+    <div class="container py-1" data-aos="fade-right" data-aos-duration="3000">
+        <div class="display-1">
+            What we do?
+        </div>
+        <div class="h1 py-5">
+            <p>Algorithm makes your privacy more safer in cloud</p>
+            <p>Store your private passwords</p>
+            <p>Avoid resetting passwords</p>
+            <p>Access at any time</p>
+            <p>More secure</p>
+        </div>
+        <hr>
+    </div>
+
+</section>
+<!-- end content -->
+
+<!-- achievement -->
+<section class="achievement align-items-center text-center py-1">
+    <div class="container py-5" data-aos="fade-left" data-aos-duration="3000">
+        <div class="display-1">
+            Trusted users around the global
+        </div>
+        <i class="fas fa-users display-2 mt-5"></i>
+        <p class="text-dark display-4">{{users}}</p>
+        <p class="display-4">There are {{users}} active users in Algorithm</p>
+    </div>
+</section>
+
+<!-- end achivement -->
+
+<!-- footer -->
+<footer class="align-items-center text-center text-light bg-dark py-1">
+    <div class="container py-5 align-items-center">
+        <div class="row d-flex justify-content-between">
+            <div class="col-md-6">
+                <p class="display-3">Algorithm &copy;</p>
+            </div>
+            <div class="col-md-6 mt-2">
+                <a class="fab fa-facebook-square h3" href="https://www.facebook.com/sainath.muru" target="_blank"></a>
+                <a class="fab fa-instagram h3" href="https://www.instagram.com/sainathmurugan/" target="_blank"></a>
+                <a class="fab fa-linkedin h3" href="https://www.linkedin.com/in/sainath-m-968946207/" target="_blank"></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+{% endblock %}

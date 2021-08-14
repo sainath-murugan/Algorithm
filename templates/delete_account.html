@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% block title %}<title>Delete Account</title>{% endblock %}
+<style>
+    body {
+        background-color: rgb(243, 243, 243);
+    }
+
+    .requiredField {
+        display: none;
+    }
+
+    input {
+        margin-top: 20px;
+    }
+
+    #div_id_recaptcha {
+        margin-top: 25px;
+    }
+</style>
+<section class="delete_account align-items-center text-center py-5">
+    <div class="container py-5">
+        <div class="row py-2 align-items-center"></div>
+        <p class="display-1">Algorithm</p>
+        <p>{% if user.is_authenticated %}
+            {% include "account/snippets/already_logged_in.html" %}
+            {% endif %}</p>
+        <p>Ensure you have deleted all your keys before closing your account</p>
+        <p>we are feeling sad because of leaving you</p>
+        <div class="d-flex justify-content-center">
+            <div class="col-lg-6 col-md-6 py-4">
+                <div class="card" data-aos="zoom-in" data-aos-duration="3000">
+                    <div class="card-body">
+                        <h5 class="card-title h1">Delete Account</h5>
+                        <form method="POST" action="{% url 'delete_account' request.user.id %}" class="py-4">
+                            {% csrf_token %}
+                            {{ form.email |as_crispy_field}}
+                            {{ form.password |as_crispy_field}}
+                            {{ form.six_digit_code |as_crispy_field}}
+                            {{ form.recaptcha}}
+                            <div class="d-grid gap-2 col-6 mx-auto mt-5">
+                                <button class="btn lead" type="submit">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+{% endblock %}
