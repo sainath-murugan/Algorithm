@@ -82,7 +82,7 @@ def edit_password(request, id):
             }
         return render(request,'edit_password.html', context)
 
-
+# from django.core.mail import send_mail
 @login_required(login_url='account_login')
 def view_password(request, id):
 

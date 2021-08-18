@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 from decouple import config
-from django.core.management.utils import get_random_secret_key
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = get_random_secret_key()
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", cast=bool)
@@ -99,27 +99,7 @@ WSGI_APPLICATION = 'webapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# if config("USE_RDS", cast=bool) == True:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': config("DB_ENGINE"),
-#             'NAME': config("DB_NAME"),
-#             'USER': config("DB_USER"),
-#             'PASSWORD': config("DB_PASSWORD"),
-#             'HOST': config("DB_HOST"),
-#             'PORT': '5432'
-#         }
-#     }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
-#         }
-#     }
-
-
-# for development
+# for development online database runs in heroku
 
 DATABASES = {
         'default': {
@@ -182,7 +162,7 @@ if config("USE_S3", cast=bool) == True:
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
     STATICFILES_STORAGE = 'webapp.storage_backends.StaticFileStorage'
 
-     #s3 media
+    #s3 media
     PUBLIC_MEDIA_LOCATION = "images"
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
     DEFAULT_FILE_STORAGE = 'webapp.storage_backends.PublicMediaStorage'
@@ -204,6 +184,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #customuser
 AUTH_USER_MODEL = 'user.CustomUser'
+
+
 # allauth
 
 LOGIN_REDIRECT_URL = 'home'
@@ -218,7 +200,6 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
 ACCOUNT_MAX_EMAIL_ADDRESSES = 1
-
 
 
 ACCOUNT_FORMS = {
@@ -266,6 +247,7 @@ INTERNAL_IPS = [
 import dj_database_url
 database = dj_database_url.config(conn_max_age=600)
 DATABASES["default"].update(database)
+
 # env- deployment
 
 if config("ENVIRONMENT") == 'production':
