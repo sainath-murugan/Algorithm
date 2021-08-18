@@ -24,7 +24,6 @@ def email_confirmed_(request, email_address, **kwargs):
     user.save()
 
   
-import platform
 from algorithm_1.models import History
 
 @receiver(user_logged_in)
@@ -32,14 +31,26 @@ def user_logged_in_(request, user, **kwargs):
     
     user = CustomUser.objects.get(email=user.email)
     try:
-        system_os = platform.uname().system
+        if request.user_agent.is_mobile:
+            device = 'mobile'
+        elif request.user_agent.is_tablet:
+            device = 'tablet'
+        elif request.user_agent.is_touch_capable:
+            device = 'a touch capable device'
+        elif request.user_agent.is_pc:
+            device = 'pc'
     except:
-        system_os = 'unknown'
-    else:
-        if system_os == 'Darwin':
-            system_os = "MAC"
+        device = 'unknown device'
+
     try:
-        system_name = platform.uname().node
+        system_os =  request.user_agent.os.family
+    except:
+        system_os = 'unknown os'
+    else:
+        system_os = f"{system_os}(Device: {device})"
+    
+    try:
+        system_name = request.user_agent.browser.family
     except:
         system_name = 'unknown'
     object = History.objects.create(user=user, system_os=str(system_os), system_name=str(system_name))

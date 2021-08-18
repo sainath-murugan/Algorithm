@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'pyotp',
     'captcha',
+    'django_user_agents',
 
     'storages',
 
@@ -73,6 +74,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     #debug toolbar
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    #user agent middle ware
+    'django_user_agents.middleware.UserAgentMiddleware',
 ]
 
 ROOT_URLCONF = 'webapp.urls'
