@@ -39,6 +39,8 @@ def user_logged_in_(request, user, **kwargs):
             device = 'a touch capable device'
         elif request.user_agent.is_pc:
             device = 'pc'
+        else:
+            device = 'unknown device'
     except:
         device = 'unknown device'
 
@@ -46,8 +48,8 @@ def user_logged_in_(request, user, **kwargs):
         system_os =  request.user_agent.os.family
     except:
         system_os = 'unknown os'
-    else:
-        system_os = f"{system_os}(Device: {device})"
+    
+    system_os = f"{system_os}(Device: {device})"
     
     try:
         system_name = request.user_agent.browser.family

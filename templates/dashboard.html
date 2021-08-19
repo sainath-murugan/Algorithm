@@ -41,7 +41,6 @@
             <div class="col-lg-3">
                 <p class="display-3 text-break">{{request.user.username}}</p> <!--text break is used-->
                 <p class="h3">Number of keys: {{request.user.profile_user.count}}</p>
-                <p class="h3 mt-3">currently logged in at: {{request.user.last_login}}</p>
             </div>
             <div class="col-lg-8 py-2">
                 {% if messages %}
