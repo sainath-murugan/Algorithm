@@ -166,7 +166,7 @@ if config("USE_S3", cast=bool) == True:
     STATICFILES_STORAGE = 'webapp.storage_backends.StaticFileStorage'
 
     #s3 media
-    PUBLIC_MEDIA_LOCATION = "images"
+    PUBLIC_MEDIA_LOCATION = "mediafilies"
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
     DEFAULT_FILE_STORAGE = 'webapp.storage_backends.PublicMediaStorage'
 
