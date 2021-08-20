@@ -1,34 +1,23 @@
-from allauth.account.signals import email_confirmed
-from allauth.account.signals import user_logged_in
+from allauth.account.signals import user_logged_in , user_signed_up
 from django.dispatch import receiver
 from django.contrib.auth import get_user_model
-from django.core.mail import EmailMessage
+from algorithm_1.models import History
 import pyotp
+
 
 CustomUser = get_user_model()
 
-@receiver(email_confirmed)
-def email_confirmed_(request, email_address, **kwargs):
-
-    user = CustomUser.objects.get(email=email_address.email)
-    secret_key = pyotp.random_base32()
-    user.authenticator_secret_code = secret_key
-
-    email = EmailMessage('it is your secret key (ALgorithm)',
-    f"we have provided you a secret key, don't share this key with anyone and download google authenticator and choose timebased authentication and use the otp every time to login. Your secret code is = {secret_key}", 
-    to=[email_address.email])
-
-    email.send()
-
-    user.save()
-
-  
-from algorithm_1.models import History
 
 @receiver(user_logged_in)
 def user_logged_in_(request, user, **kwargs):
     
     user = CustomUser.objects.get(email=user.email)
+    if user.authenticator_secret_code:
+        pass
+    else:
+        secret_key = pyotp.random_base32()
+        user.authenticator_secret_code = secret_key
+        user.save()
     try:
         if request.user_agent.is_mobile:
             device = 'mobile'
