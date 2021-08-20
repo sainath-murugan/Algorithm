@@ -24,6 +24,6 @@ class FeedBackForm(ModelForm):
             'feedback'
         ]
         widgets = {
-            'feedback': Textarea(attrs={'placeholder': 'Enter your feedback or tell us know what you want...',}),
+            'feedback': Textarea(attrs={'placeholder': 'Enter your feedback or tell us about your queries...',}),
         }
         

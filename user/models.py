@@ -11,6 +11,7 @@ class CustomUser(AbstractUser):
         editable=False
     )
     authenticator_secret_code = models.CharField(max_length=500, blank=True)
+    google_authenticator = models.BooleanField(default=False)
     show_overall_login_history = models.BooleanField(default=True)
     show_last_modified_of_password = models.BooleanField(default=True)
     
@@ -18,3 +19,9 @@ class CustomUser(AbstractUser):
         return reverse('dashboard', kwargs={
             'id': str(self.id)
         })
+
+class PasswordChangeRequest(models.Model):
+    user_email = models.CharField(max_length=150, blank=False)
+
+    def __str__(self):
+        return f"{self.user_email}"

@@ -376,3 +376,34 @@ footer .container .row .fab:hover{
     background-color: tomato;
     color: black;
 }
+
+/* two_factor_authentication.html */
+
+.two_factor_authentication .container .row .display-1{
+    font-family: 'MuseoModerno', cursive;
+
+}
+.two_factor_authentication .container .row .col-lg-5 .card .card-body button{
+   background-color: black;
+   color: white;
+}
+.two_factor_authentication .container .row .col-lg-5 .card .card-body button:hover{
+    background-color: tomato;
+    color: black;
+ }
+
+.two_factor_authentication .container .row .col-lg-5 .card .card-body a{
+   text-decoration: none;
+ }
+.two_factor_authentication .container .row .col-lg-5 .card .card-body input{
+    background-color: rgb(243, 243, 243);
+  }
+.two_factor_authentication .container .row .col-lg-5 .card .card-body input, .two_factor_authentication .container .row .col-lg-5 .card .card-body button{
+   box-shadow: none;
+  }
+.two_factor_authentication .container .row .col-lg-5 .card .card-body input:focus{
+    border: 1px black solid;
+   }
+.two_factor_authentication .container a{
+    text-decoration: none;
+}

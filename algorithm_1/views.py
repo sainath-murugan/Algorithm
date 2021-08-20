@@ -88,14 +88,11 @@ def view_password(request, id):
 
     object = get_object_or_404(Vault, id=id)
     if object.user.id == request.user.id:     
-        email = EmailMessage('The password requested by you from Algorithm,',
-        f"KEY: {object.key}, PASSWORD: {object.value}", 
-        to=[request.user.email])
-        email.send()
+        messages.success(request, f"KEY: {object.key} | PASSWORD: {object.value}")
+        return redirect("dashboard" ,id=str(request.user.id))
     else:
         return HttpResponseBadRequest('error 404')
-    messages.success(request, 'we have sent you a email with key and password')
-    return redirect("dashboard" ,id=str(request.user.id))
+    
 
 
 @login_required(login_url='account_login')

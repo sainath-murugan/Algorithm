@@ -102,6 +102,13 @@
         </div>
         <div class="row   d-flex justify-content-center py-3">
             <div class="col-md-5">
+                <a class="h2 option-in-line py-2" href="{% url 'two_factor_authentication' request.user.id %}">
+                    Two factor authentication
+                </a>
+            </div>
+        </div>
+        <div class="row   d-flex justify-content-center py-3">
+            <div class="col-md-5">
                 <a class="h2 option-in-line py-2" href="{% url 'delete_account' request.user.id %}">
                     Delete Account
                 </a>

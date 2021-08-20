@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
+from .models import PasswordChangeRequest
 
 
 CustomUser = get_user_model()
@@ -18,6 +19,7 @@ class CustomUserAdmin(UserAdmin):
                 'fields': 
                 (
                     'authenticator_secret_code',
+                    'google_authenticator',
                 )
             }
         ),
@@ -34,4 +36,5 @@ class CustomUserAdmin(UserAdmin):
 
     )
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(PasswordChangeRequest)
 
