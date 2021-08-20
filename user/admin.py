@@ -18,6 +18,7 @@ class CustomUserAdmin(UserAdmin):
             {
                 'fields': 
                 (
+                    'authenticator_qrcode',
                     'authenticator_secret_code',
                     'google_authenticator',
                 )

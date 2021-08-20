@@ -6,7 +6,7 @@ class StaticFileStorage(S3Boto3Storage):
     default_acl = 'public-read'
 
 
-class PublicMediaStorage(S3Boto3Storage):  #no use of media because i not used images in this project
+class PublicMediaStorage(S3Boto3Storage): 
     location = settings.PUBLIC_MEDIA_LOCATION
     file_overwrite = False
     default_acl = 'public-read'

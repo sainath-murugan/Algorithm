@@ -1,9 +1,12 @@
-from allauth.account.signals import user_logged_in , user_signed_up
+from allauth.account.signals import user_logged_in 
 from django.dispatch import receiver
 from django.contrib.auth import get_user_model
+from django.core.files import File
 from algorithm_1.models import History
+from django.conf import settings
 import pyotp
-
+import qrcode
+import os
 
 CustomUser = get_user_model()
 
@@ -17,7 +20,12 @@ def user_logged_in_(request, user, **kwargs):
     else:
         secret_key = pyotp.random_base32()
         user.authenticator_secret_code = secret_key
+        picture_path = os.path.join(settings.BASE_DIR, "mediafiles/user_authenticator_qrcode_image/", f"{secret_key}_{user.id}.jpg") 
+        qrcode_image =  qrcode.make(pyotp.totp.TOTP(secret_key).provisioning_uri(name=f"{user.email}", issuer_name='Algorithm'))
+        qrcode_image.save(picture_path)
+        user.authenticator_qrcode = "user_authenticator_qrcode_image/" + f"{secret_key}_{user.id}.jpg"
         user.save()
+        
     try:
         if request.user_agent.is_mobile:
             device = 'mobile'
