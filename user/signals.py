@@ -14,9 +14,8 @@ def email_confirmed_(request, email_address, **kwargs):
     secret_key = pyotp.random_base32()
     user.authenticator_secret_code = secret_key
 
-    email = EmailMessage('it is your secret key',
-    "we have provided you a secret key, don't share this key with anyone and download google authenticator and choose timebased authentication and use the otp every time to login.",
-    f"Your secret code is = {secret_key}", 
+    email = EmailMessage('it is your secret key (ALgorithm)',
+    f"we have provided you a secret key, don't share this key with anyone and download google authenticator and choose timebased authentication and use the otp every time to login. Your secret code is = {secret_key}", 
     to=[email_address.email])
 
     email.send()

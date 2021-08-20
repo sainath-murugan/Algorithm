@@ -88,8 +88,8 @@ def view_password(request, id):
 
     object = get_object_or_404(Vault, id=id)
     if object.user.id == request.user.id:     
-        email = EmailMessage('The password requested by you,',
-        f"key: {object.key}, password: {object.value}", 
+        email = EmailMessage('The password requested by you from Algorithm,',
+        f"KEY: {object.key}, PASSWORD: {object.value}", 
         to=[request.user.email])
         email.send()
     else:

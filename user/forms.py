@@ -31,7 +31,7 @@ CustomUser = get_user_model()
 
 class MyCustomLoginForm(LoginForm):
     
-    six_digit_code = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'enter 6 digit code', 'maxlength':6,}))
+    six_digit_code = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'enter 6 digit code (if available)', 'maxlength':6,}))
     six_digit_code.required = False
     six_digit_code.label = False
 
