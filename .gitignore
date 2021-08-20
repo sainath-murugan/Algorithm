@@ -149,4 +149,4 @@ cython_debug/
 
 # my custom
 
-mediafiles/user_authenticatior_qrcode_image
+webapp/mediafiles/user_authenticatior_qrcode_image/
