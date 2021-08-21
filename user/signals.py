@@ -30,11 +30,24 @@ def user_logged_in_(request, user, **kwargs):
             MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
             DEFAULT_FILE_STORAGE = 'webapp.storage_backends.PublicMediaStorage'
 
-            picture_path = os.path.join(settings.BASE_DIR, f"{MEDIA_URL}/user_authenticator_qrcode_image/", f"{user.id}.jpg") 
+            picture_path = os.path.join(f"{MEDIA_URL}/user_authenticator_qrcode_image/", f"{user.id}.jpg") 
             qrcode_image =  qrcode.make(pyotp.totp.TOTP(secret_key).provisioning_uri(name=f"{user.email}", issuer_name='Algorithm'))
             qrcode_image.save(picture_path)
             user.authenticator_qrcode = "user_authenticator_qrcode_image/" + f"{user.id}.jpg"
             user.save()
+
+        else:
+
+            secret_key = pyotp.random_base32()
+            user.authenticator_secret_code = secret_key
+
+            picture_path = os.path.join(settings.BASE_DIR, "/user_authenticator_qrcode_image/", f"{user.id}.jpg") 
+            qrcode_image =  qrcode.make(pyotp.totp.TOTP(secret_key).provisioning_uri(name=f"{user.email}", issuer_name='Algorithm'))
+            qrcode_image.save(picture_path)
+            user.authenticator_qrcode = "user_authenticator_qrcode_image/" + f"{user.id}.jpg"
+            user.save()
+            
+
         
     try:
         if request.user_agent.is_mobile:
