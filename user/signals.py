@@ -7,6 +7,7 @@ from django.conf import settings
 import pyotp
 import qrcode
 import os
+from decouple import config
 
 CustomUser = get_user_model()
 
@@ -18,13 +19,22 @@ def user_logged_in_(request, user, **kwargs):
     if user.authenticator_secret_code:
         pass
     else:
-        secret_key = pyotp.random_base32()
-        user.authenticator_secret_code = secret_key
-        picture_path = os.path.join(settings.BASE_DIR, "mediafiles/user_authenticator_qrcode_image/", f"{user.id}.jpg") 
-        qrcode_image =  qrcode.make(pyotp.totp.TOTP(secret_key).provisioning_uri(name=f"{user.email}", issuer_name='Algorithm'))
-        qrcode_image.save(picture_path)
-        user.authenticator_qrcode = "user_authenticator_qrcode_image/" + f"{user.id}.jpg"
-        user.save()
+        if config("USE_S3", cast=bool) == True:
+            secret_key = pyotp.random_base32()
+            user.authenticator_secret_code = secret_key
+
+            # aws settings
+            AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+            AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+            PUBLIC_MEDIA_LOCATION = "mediafilies"
+            MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
+            DEFAULT_FILE_STORAGE = 'webapp.storage_backends.PublicMediaStorage'
+
+            picture_path = os.path.join(settings.BASE_DIR, f"{MEDIA_URL}/user_authenticator_qrcode_image/", f"{user.id}.jpg") 
+            qrcode_image =  qrcode.make(pyotp.totp.TOTP(secret_key).provisioning_uri(name=f"{user.email}", issuer_name='Algorithm'))
+            qrcode_image.save(picture_path)
+            user.authenticator_qrcode = "user_authenticator_qrcode_image/" + f"{user.id}.jpg"
+            user.save()
         
     try:
         if request.user_agent.is_mobile:
