@@ -150,4 +150,3 @@ cython_debug/
 # my custom
 
 webapp/mediafiles/user_authenticator_qrcode_image
-runtime.txt
