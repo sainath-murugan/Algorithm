@@ -6,7 +6,6 @@ from django.shortcuts import get_object_or_404
 from .models import Vault, History
 from django.http import HttpResponseBadRequest
 from django.contrib import messages
-from django.core.mail import EmailMessage
 from user.forms import AccountSettings, DeleteAccount
 
 

@@ -32,7 +32,11 @@ def two_factor_authentication(request, id):
         if request.method == 'POST':
             form = TwoMFA(request.POST, request=request) #request=request is due to TwoMFA form class
             if form.is_valid():
-                return redirect('settings',id=str(request.user.id))
+                if request.user.google_authenticator:
+                    messages.success(request, f"Two factor authentication enabled")
+                else:
+                    messages.success(request, f"Two factor authentication disabled")
+                return redirect('two_factor_authentication',id=str(request.user.id))
             
     context = {
         'form':form

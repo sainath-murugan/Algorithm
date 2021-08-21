@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import PasswordChangeRequest
+from .models import PasswordChangeRequest, UserQrcode
 
 
 CustomUser = get_user_model()
@@ -18,7 +18,7 @@ class CustomUserAdmin(UserAdmin):
             {
                 'fields': 
                 (
-                    'authenticator_qrcode',
+                    'qr_code',
                     'authenticator_secret_code',
                     'google_authenticator',
                 )
@@ -38,4 +38,5 @@ class CustomUserAdmin(UserAdmin):
     )
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(PasswordChangeRequest)
+admin.site.register(UserQrcode)
 
