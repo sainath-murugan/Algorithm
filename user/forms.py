@@ -80,8 +80,8 @@ class DeleteAccount(forms.Form):
 
     email = forms.EmailField(max_length=150, widget=forms.TextInput(attrs={'placeholder': 'email'}))
     password = forms.CharField(max_length=150, widget=forms.PasswordInput(attrs={'placeholder': 'password'}))
-    six_digit_code = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'enter 6 digit code', 'maxlength':6,}), help_text='enter six digit code after verifing captcha')
-    six_digit_code.required = True
+    six_digit_code = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'enter 6 digit code (if 2FA enabled)', 'maxlength':6,}), help_text='enter six digit code after verifing captcha')
+    six_digit_code.required = False
     six_digit_code.label = False
     recaptcha = ReCaptchaField(widget = ReCaptchaV2Checkbox(attrs={    
               'data-size': 'compact',
@@ -108,10 +108,17 @@ class DeleteAccount(forms.Form):
     def clean_six_digit_code(self):
 
         six_digit_code = self.cleaned_data['six_digit_code']
-        if pyotp.TOTP(str(self.request.user.authenticator_secret_code)).verify(str(six_digit_code)):
-            return six_digit_code
+        if self.request.user.google_authenticator:
+            if six_digit_code:
+                if pyotp.TOTP(str(self.request.user.authenticator_secret_code)).verify(str(six_digit_code)):
+                    return six_digit_code
+                else:
+                    raise forms.ValidationError("Enter your correct six digit code") 
+            else:
+                raise forms.ValidationError("Two factor authentication is enabled in your account. Please enter the 6 digit code")
         else:
-            raise forms.ValidationError("Enter your correct six digit code") 
+            pass
+
 
 class TwoMFA(forms.Form):
 
@@ -120,7 +127,7 @@ class TwoMFA(forms.Form):
         self.request = kwargs.pop("request")
         super(TwoMFA, self).__init__(*args, **kwargs)
 
-    six_digit_code = forms.CharField(max_length=6, label=False, widget=forms.TextInput(attrs={'placeholder': 'enter 6 digit code', 'maxlength':6,}))
+    six_digit_code = forms.CharField(max_length=6, label=False, widget=forms.TextInput(attrs={'placeholder': 'enter 6 digit code',}))
 
     def clean_six_digit_code(self):
 
